@@ -23,7 +23,7 @@ class AdminDashboardController extends Controller
 
     public function today()
     {
-        $users = User::where('created_at', Carbon::today())->get();
+        $users = User::whereDate('created_at', Carbon::today())->get();
         return view('admin.user.today', compact('users'));
     }
 
@@ -86,6 +86,7 @@ class AdminDashboardController extends Controller
         $user = User::find($id);
         $user->status = 'approved';
         $user->save();
+        return redirect()->back()->with('success','User Approved');
 
     }
 }
